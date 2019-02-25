@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Application Home Page</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+</head>
+
+<body>
+
+
+	
+
+	<div id="pageContent">
+		<table id="tableau" border="1">
+			<tr>
+				<td>Id</td>
+				<td id="idEmployee"></td>
+			</tr>
+			<tr>
+				<td>FirstName</td>
+				<td id="firstNameEmployee"></td>
+			</tr>
+			<tr>
+				<td>LastName</td>
+				<td id="lastNameEmployee"></td>
+			</tr>
+			<tr>
+				<td>Gender</td>
+				<td id="genderEmployee"></td>
+			</tr>
+			<tr>
+				<td>PhoneNumber</td>
+				<td id="phoneNumberEmployee"></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td id="EmailEmployee"></td>
+			</tr>
+
+		</table>
+	
+		<table id="tableau" border="1">
+			<tr>
+				<td>FirstName</td>
+				<td><input id="firstNameEmployee-edit" name="fn-edit" type="text" /></td>
+			</tr>
+			<tr>
+				<td>LastName</td>
+				<td><input id="lastNameEmployee-edit" name="ln-edit" type="text" /></td>
+			</tr>
+			<tr>
+				<td>Gender</td>
+				<td><input id="genderEmployee-edit" name="gend-edit" type="text" /></td>
+			</tr>
+			<tr>
+				<td>PhoneNumber</td>
+				<td><input id="phoneNumberEmployee-edit" name="phn-edit" type="tel" /></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td><input id="EmailEmployee-edit" name="mail-edit" type="text" /></td>
+			</tr>
+
+		</table>
+	
+	<button id="modif" type="button" onclick="editCurentEmployee()"> Edit </button>
+	<button id="out" type="button" onclick="logOut()"> Log Out </button>
+
+	
+	</div>
+	<div id="root">
+		<img id="loading" src="Preloader_2.gif" alt="loading" />
+    </div>
+
+
+	
+
+
+	
+
+	<script src="main.js"></script>
+	<script src="api.js"></script>
+
+	<script>
+		$(document).ready(function () {
+			if (!localStorage.getItem("SessionKeyStore")) {
+				console.log("ready!");
+				location.href = 'home.html';
+			}
+			else
+			{
+				httpGetAsync();
+			}
+			$('#modif').click(function(){
+				var toLoad = $(this).attr('user.html')+' #pageContent';
+				$('#pageContent').hide('fast',loadContent);
+				$('#root').append('<span id="load">LOADING...</span>');
+				$('#loading').css('visibility','visible');
+				function loadContent() {
+					$('#pageContent').load(toLoad,'',showNewContent())
+				}
+				function showNewContent() {
+					$('#pageContent').show('normal',hideLoader());
+				}
+				function hideLoader() {
+					$('#root').fadeOut('normal');
+					$('#loading').css('visibility','hidden'); 
+				}
+				httpGetAsync();
+				return false;
+			});
+			$('#out').click(function(){
+				var toLoad = $(this).attr('user.html')+' #pageContent';
+				$('#pageContent').hide('fast',loadContent);
+				$('#root').append('<span id="load">LOADING...</span>');
+				$('#loading').css('visibility','visible');
+				function loadContent() {
+					$('#pageContent').load(toLoad,'',showNewContent())
+				}
+				function showNewContent() {
+						
+				}
+				function hideLoader() {
+					$('#root').fadeOut('normal');
+					$('#loading').css('visibility','hidden'); 
+				}
+				httpGetAsync();
+				return false;
+			});
+			
+		});
+	</script>
+
+
+</body>
+
+</html>

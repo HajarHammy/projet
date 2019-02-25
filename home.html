@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<title>Application Home Page</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+<div id="pageContent2">
+	<form action="UserAction()" method="POST">
+		<h4>Login </h4> </br>
+			<p5>Email adress: </p5>
+				<input id="mail" name="mail" type="text" Email adress=""/> </br> </br>
+			<p6>Password: </p6>
+				<input id="pass" name="pass"  type="password" /> </br>
+			<p>  
+			 	<button id="login" type="button"  > Login </button> 
+			</p> 
+	</form>
+</div>
+<div id="root2">
+	<img id="loading2" src="Preloader_2.gif" alt="loading" />
+</div>	
+
+ 	<script src="main.js"></script>
+	 <script src="api.js"></script>
+	 <script>
+		$(document).ready(function () {
+			$('button').click(function(){
+				UserAction();
+			});
+			
+		});
+	</script>
+
+
+
+</body>
+</html>
