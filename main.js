@@ -1,5 +1,3 @@
-
-
 function httpGetAsync() 
 {
 	let SessionKey = localStorage.getItem('SessionKeyStore');
@@ -29,7 +27,7 @@ function renderHTML(data)
 	if (typeof data !== 'undefined') {
 		console.log(data.Id);
 
-		$("#idEmployee").html(data.Id);// todo use query for the rest 
+		$("#idEmployee").html(data.Id); 
 		$("#firstNameEmployee").html(data.FirstName);
 		$("#lastNameEmployee").html(data.LastName);
 		$("#genderEmployee").html(data.Gender);
@@ -70,64 +68,38 @@ function editCurentEmployee() {
 	{
 		console.log("always function reaced");
 		window.title = "done";
-		$("#spiner").hide();
 	}
 
 }
 
-function UserAction() {
-	// Create a request variable and assign a new XMLHttpRequest object to it.
-	var request = new XMLHttpRequest();
+function login() {
 	var data = JSON.stringify({
 		Email: $('#mail').val(),
-		Password: $('#pass').val(),
+		Password: $('#pass').val()
 	});
-	var toLoad = $(this).attr('user.html')+' #pageContent';
-				$('#pageContent2').hide('fast');
-				$('#root2').append('<span id="load">LOADING...</span>');
-				$('#loading2').css('visibility','visible');
-				function hideLoader() {
-					$('#root2').fadeOut('normal');
-					$('#loading2').css('visibility','hidden');
-				} fff
+	// Open a new connection, using the POST request on the URL endpoint
+	callApi("POST","api/Employees/LogIn", data, '', doneFunction, errorFunction, alwaysFunction); 
 
-	// Open a new connection, using the GET request on the URL endpoint
-	request.open('POST', 'http://jobmymy-001-site2.ftempurl.com/api/Employees/Login', true);
+	function doneFunction(response) {
+		var data2 = this.responseText;
+		var json = JSON.parse(data2);
+		var sessionkey = json.SessionKey;
+		localStorage.setItem('SessionKeyStore', sessionkey);
 
-	request.onreadystatechange = function () {
-		// Begin accessing JSON data here
-		if (this.readyState == 4 && this.status == 200) {
-			var data2 = this.responseText;
-			var json = JSON.parse(data2);
-			var sessionkey = json.SessionKey;
-			localStorage.setItem('SessionKeyStore', sessionkey);
-			function loadContent() {
-				$('#pageContent2').load(toLoad,'')
-			}
-			window.location = 'user.html';
-
-		}
-		if(this.status == 400)
-		{
-			function loadContent() {
-				$('#pageContent2').load(toLoad,'',showNewContent())
-			}
-			function showNewContent() {
-				$('#pageContent2').show('normal',hideLoader());
-			}
-			window.location = 'home.html';
-			alert("Connexion échoué!!");
-		}
+		window.location = 'user.html';
 	}
 
-	request.setRequestHeader("Content-type", "application/json");
-
-	// Send request
-	request.send(data);
+	function errorFunction(response) {
+		console.log("error function reaced");
+		alert("Erreur de connexion!");
+	}
+	function alwaysFunction(response) {
+		console.log("always function reaced");
+		window.title = "done";
+	}
 
 }
 function logOut() {
-	// Create a request variable and assign a new XMLHttpRequest object to it.
 	
 	localStorage.removeItem('SessionKeyStore');
 	window.location = 'home.html';

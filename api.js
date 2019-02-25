@@ -12,7 +12,6 @@ function callApi(method, url, data, SessionKey, doneFunction, errorFunction, alw
 		"processData": false,
 		"data": data,
 
-
 	}
 
 	$.ajax(settings).done(function (response) {
