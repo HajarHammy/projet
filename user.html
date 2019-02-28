@@ -5,14 +5,16 @@
 	<meta charset="UTF-8">
 	<title>Application Home Page</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
 
 </head>
 
 <body>
+		<div id="div_spinner_user">
+				<img id="loading" src="Preloader_2.gif" alt="loading" />
+		</div>
 
-	<div id="pageContent">
+	<div id="div_pageContent_user"  style=" display:none;">
 		<table id="tableau" border="1">
 			<tr>
 				<td>Id</td>
@@ -65,64 +67,47 @@
 
 		</table>
 	
-	<button id="modif" type="button" onclick="editCurentEmployee()"> Edit </button>
-	<button id="out" type="button" onclick="logOut()"> Log Out </button>
+	<button id="modif" type="button" > Edit </button>
+	<button id="out" type="button" > Log Out </button>
 
 	
 	</div>
-	<div id="root">
-		<img id="loading" src="Preloader_2.gif" alt="loading" />
-    </div>
+
 
 	<script src="main.js"></script>
 	<script src="api.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 	<script>
 		$(document).ready(function () {
+			
 			if (!localStorage.getItem("SessionKeyStore")) {
 				console.log("ready!");
 				location.href = 'home.html';
 			}
 			else
 			{
-				httpGetAsync();
-			}
-			$('#modif').click(function(){
-				var toLoad = $(this).attr('user.html')+' #pageContent';
-				$('#pageContent').hide('fast',loadContent);
-				$('#root').append('<span id="load">LOADING...</span>');
-				$('#loading').css('visibility','visible');
-				function loadContent() {
-					$('#pageContent').load(toLoad,'',showNewContent())
-				}
-				function showNewContent() {
-					$('#pageContent').show('normal',hideLoader());
-				}
-				function hideLoader() {
-					$('#root').fadeOut('normal');
-					$('#loading').css('visibility','hidden'); 
-				}
-				httpGetAsync();
-				return false;
-			});
-			$('#out').click(function(){
-				var toLoad = $(this).attr('user.html')+' #pageContent';
-				$('#pageContent').hide('fast',loadContent);
-				$('#root').append('<span id="load">LOADING...</span>');
-				$('#loading').css('visibility','visible');
-				function loadContent() {
-					$('#pageContent').load(toLoad,'',showNewContent())
-				}
-				function showNewContent() {
 
-				}
-				function hideLoader() {
-					$('#root').fadeOut('normal');
-					$('#loading').css('visibility','hidden'); 
-				}
-				httpGetAsync();
-				return false;
+				displayUser();
+			}
+
+			$('#modif').click(function () {
+				$('#div_spinner_user').css('display','');
+				$('#div_pageContent_user').css('display','none');
+				editCurentEmployee();
+				
+				
 			});
+
+			$('#out').click(function () {
+				$('#div_spinner_user').css('display','');
+				$('#div_pageContent_user').css('display','none');
+				logOut();
+				$('#div_pageContent_user').css('display','none');
+				
+			});
+
 			
 		});
 	</script>

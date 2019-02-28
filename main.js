@@ -1,4 +1,4 @@
-function httpGetAsync() 
+function displayUser() 
 {
 	let SessionKey = localStorage.getItem('SessionKeyStore');
 	var settings = callApi("GET", "Employees/Current?=", "", SessionKey,doneFunction,errorFunction,alwaysFunction);
@@ -7,6 +7,8 @@ function httpGetAsync()
 	{
 		console.log("done function reaced");
 		renderHTML(response);
+		$('#div_spinner_user').css('display','none');
+		$('#div_pageContent_user').css('display','');
 	}
 
 	function errorFunction(response) 
@@ -19,6 +21,7 @@ function httpGetAsync()
 	{
 		console.log("always function reaced");
 		window.title = "done";
+	
 	}
 }
 
@@ -57,6 +60,7 @@ function editCurentEmployee() {
 	{
 		console.log("done function reaced");
 		renderHTML(response);
+		displayUser();
 	}
 
 	function errorFunction(response) 
@@ -68,6 +72,8 @@ function editCurentEmployee() {
 	{
 		console.log("always function reaced");
 		window.title = "done";
+		$('#div_spinner_user').css('display','none');
+		$('#div_pageContent_user').css('display','');
 	}
 
 }
@@ -77,11 +83,13 @@ function login() {
 		Email: $('#mail').val(),
 		Password: $('#pass').val()
 	});
+
+	console.log(data);
 	// Open a new connection, using the POST request on the URL endpoint
-	callApi("POST","api/Employees/LogIn", data, '', doneFunction, errorFunction, alwaysFunction); 
+	callApi("POST","Employees/LogIn", data, '', doneFunction, errorFunction, alwaysFunction); 
 
 	function doneFunction(response) {
-		var data2 = this.responseText;
+		var data2= JSON.stringify(response);
 		var json = JSON.parse(data2);
 		var sessionkey = json.SessionKey;
 		localStorage.setItem('SessionKeyStore', sessionkey);

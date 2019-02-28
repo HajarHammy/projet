@@ -14,7 +14,7 @@
   } */ 
 
 
-	#pageContent{   /* the container that holds our AJAX loaded content */
+	#div_pageContent_user{   /* the container that holds our AJAX loaded content */
     position: fixed;
   top: 50%;
   left: 50%;
@@ -29,7 +29,7 @@
   z-index: 100;
 }
 
-#loading{   /* hiding the rotating gif graphic by default */
+#div_spinner_user{   /* hiding the rotating gif graphic by default */
 	position: fixed;
   top: 50%;
   left: 50%;
@@ -42,11 +42,11 @@
   font-size: 20px;
   padding: 5px;
   z-index: 100;
-  visibility:hidden;
+ 
 }
 
 
-#pageContent2{   /* the container that holds our AJAX loaded content */
+#div_pageContent{   /* the container that holds our AJAX loaded content */
 	position: fixed;
   top: 50%;
   left: 50%;
@@ -61,7 +61,7 @@
   z-index: 100;
 }
 
-#loading2{   /* hiding the rotating gif graphic by default */
+#div_spinner{   /* hiding the rotating gif graphic by default */
 	position: fixed;
   top: 50%;
   left: 50%;
@@ -74,5 +74,4 @@
   font-size: 20px;
   padding: 5px;
   z-index: 100;
-	visibility:hidden;
 }
